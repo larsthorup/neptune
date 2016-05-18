@@ -1,0 +1,20 @@
+{
+  "name": "schema",
+  "private": true,
+  "scripts": {
+    "preinstall": "npm install ../config",
+    "migrate:status": "node src/migrate status",
+    "migrate:latest": "node src/migrate latest",
+    "migrate:create": "node src/migrate create",
+    "migrate:drop": "node src/migrate drop",
+    "migrate:recreate": "npm run migrate:drop && npm run migrate:create && npm run migrate:latest",
+    "up": "node src/migrate up",
+    "start": "npm run migrate:recreate",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "config": "../config",
+    "knex": "^0.10.0",
+    "pg": "^4.5.3"
+  }
+}

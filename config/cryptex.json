@@ -1,0 +1,13 @@
+{
+  "production": {
+    "keySource": "file",
+    "keySourceEncoding": "base64",
+    "keySourceOpts": {
+      "path": "cryptex.key"
+    },
+    "secrets": {
+      "postgresql_password": "",
+      "modulus_token": "0H5DBJXqkdb70tx7c2wRigTG+ZrHhm1KVuXuKi6qc47CnGNeM8W6YLYyJ5jxPDAWyiEv1cvWZZpy16+CtJI6GA=="
+    }
+  }
+}

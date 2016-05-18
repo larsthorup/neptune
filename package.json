@@ -1,15 +1,22 @@
 {
   "name": "neptune",
-  "version": "0.1.0",
   "description": "Sample single-repo setup for a multi-service system with automated deployment",
+  "version": "0.1.0",
+  "engines": {
+    "node": "^6.0.0"
+  },
   "config": {
     "projects": [
+      "config",
+      "schema",
       "deploy"
     ]
   },
   "scripts": {
     "postinstall": "node tools/projects install",
-    "test": "node tools/projects test"
+    "test": "node tools/projects test",
+    "start:schema": "cd schema && npm start",
+    "start": "npm run start:schema"
   },
   "repository": {
     "type": "git",

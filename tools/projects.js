@@ -14,7 +14,7 @@ package.config.projects.forEach(function (project) {
     shell: true, // Note: Since npm is a .cmd file on Windows we must run it through the shell
     stdio: 'inherit'
   };
-  // console.log(npmArgs, spawnOptions);
+  console.log(`cd ${project} && npm ${npmArgs.join(' ')}`);
   const npmProcess = childProcess.spawnSync('npm', npmArgs, spawnOptions);
   if (npmProcess.status != 0) {
     process.exit(npmProcess.status);
