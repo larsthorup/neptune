@@ -16,7 +16,8 @@
     "postinstall": "node tools/projects install",
     "test": "node tools/projects test",
     "start:schema": "cd schema && npm start",
-    "start": "npm run start:schema"
+    "start:api": "cd api && npm start",
+    "start": "npm run start:schema && npm run start:api"
   },
   "repository": {
     "type": "git",
@@ -27,5 +28,8 @@
   "bugs": {
     "url": "https://github.com/larsthorup/neptune/issues"
   },
-  "homepage": "https://github.com/larsthorup/neptune#readme"
+  "homepage": "https://github.com/larsthorup/neptune#readme",
+  "dependencies": {
+    "@larsthorup/local": "^0.2.0"
+  }
 }

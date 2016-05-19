@@ -1,0 +1,11 @@
+{
+  "name": "api",
+  "private": true,
+  "scripts": {
+    "start": "node src/main",
+    "test": "echo ToDo: tests"
+  },
+  "dependencies": {
+    "restify": "^4.0.4"
+  }
+}

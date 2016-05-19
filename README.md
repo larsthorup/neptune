@@ -7,6 +7,7 @@ Projects are defined in dependency order in `package.json` in `config.projects`.
 ---|---
 config | Shared cross-project configuration
 schema | Database schema
+api | API service
 deploy | Scripts to deploy to production
 
 

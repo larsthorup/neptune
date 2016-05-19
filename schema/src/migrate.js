@@ -1,17 +1,9 @@
 var path = require('path');
-var config = require('config');
-var Knex = require('knex');
+var local = require('@larsthorup/local');
+var config = local('config');
+var schema = require('./index');
 
 var conf;
-
-function connectionString (dbname) {
-  const user = conf.postgres.user;
-  const password = conf.postgres.password;
-  const host = conf.postgres.host;
-  const port = conf.postgres.port;
-  const ssl = conf.postgres.ssl;
-  return `postgres://${user}:${password}@${host}:${port}/${dbname}?ssl=${ssl}`;
-}
 
 function configuring () {
   return config.load().then(function (configObject) {
@@ -19,38 +11,8 @@ function configuring () {
   });
 }
 
-var knex = (function () {
-  var instance;
-  return function () {
-    if (!instance) {
-      instance = Knex({
-        client: 'pg',
-        connection: connectionString(conf.postgres.dbname),
-        migrations: {
-          directory: path.join(__dirname, './migrations')
-        }
-      });
-    }
-    return instance;
-  }
-})();
-
-var knexAdmin = (function () {
-  var instance;
-  return function () {
-    if (!instance) {
-      instance = Knex({
-        client: 'pg',
-        connection: connectionString('postgres'),
-        // debug: true
-      });
-    }
-    return instance;
-  }
-})();
-
 function drop () {
-  return knexAdmin().raw(`drop database ${conf.postgres.dbname};`).then(function () {
+  return schema.knexAdmin().raw(`drop database ${conf.postgres.dbname};`).then(function () {
     console.log(`Database ${conf.postgres.dbname} dropped`);
   }).catch(function (err) {
     console.log('Error:', err.message);
@@ -58,7 +20,7 @@ function drop () {
 }
 
 function create () {
-  return knexAdmin().raw(`create database ${conf.postgres.dbname};`).then(function () {
+  return schema.knexAdmin().raw(`create database ${conf.postgres.dbname};`).then(function () {
     console.log(`Database ${conf.postgres.dbname} created`);
   }).catch(function (err) {
     console.log('Error:', err.message);
@@ -66,10 +28,10 @@ function create () {
 }
 
 function status () {
-  return knexAdmin()('pg_database').where({datname: conf.postgres.dbname}).select(knexAdmin().raw('count(*) = 1 as exists')).then(function (rows) {
+  return schema.knexAdmin()('pg_database').where({datname: conf.postgres.dbname}).select(schema.knexAdmin().raw('count(*) = 1 as exists')).then(function (rows) {
     var exists = rows[0].exists;
     if (exists) {
-      return knex().migrate.currentVersion();
+      return schema.knex().migrate.currentVersion();
     } else {
       return 'non-existing';
     }
@@ -81,7 +43,7 @@ function status () {
 }
 
 function latest () {
-  return knex().migrate.latest().then(function (result) {
+  return schema.knex().migrate.latest().then(function (result) {
     console.log('Database migrated to latest version');
   }).catch(function (err) {
     console.log('Error:', err.message);
@@ -103,6 +65,8 @@ function running (command) {
 }
 
 configuring().then(function () {
+  return schema.configuring();
+}).then(function () {
   return running(process.argv[2]);
 }).then(function () {
   process.exit(0);
@@ -110,3 +74,4 @@ configuring().then(function () {
   console.log('Error', err);
   process.exit(1);
 });
+
