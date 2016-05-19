@@ -12,14 +12,9 @@ deploy | Scripts to deploy to production
 
 
 
-`npm run ...` | Description
----|---
-test | Run `npm test` in all sub projects
+`npm run ...`   | Description
+---             | ---
+test            | Run `npm test` in all sub projects
+start           | Migrate local database and run local API
+deploy          | Migrate production database deploy production API
 
-
-
-## Techniques used
-
-Local dependencies (like the dependency on `config` in `schema` are referenced twice:
-* as a relative dependency to satisfy the `require('config')` expression in the code
-* as a preinstall step, to copy any changes from the dependency

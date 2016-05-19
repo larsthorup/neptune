@@ -23,6 +23,7 @@ module.exports = function (environment, secrets) {
       port: '5432',
       user: 'pbktfksh',
       password: secrets['postgresql_password'],
+      dbname: 'pbktfksh',
       ssl: true
     }
   };

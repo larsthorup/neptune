@@ -17,7 +17,8 @@
     "test": "node tools/projects test",
     "start:schema": "cd schema && npm start",
     "start:api": "cd api && npm start",
-    "start": "npm run start:schema && npm run start:api"
+    "start": "npm run start:schema && npm run start:api",
+    "deploy": "cd deploy && npm start"
   },
   "repository": {
     "type": "git",

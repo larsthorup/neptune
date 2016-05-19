@@ -5,5 +5,9 @@
   "main": "src/index.js",
   "dependencies": {
     "cryptex": "^0.6.1"
+  },
+  "scripts": {
+    "encrypt": "cryptex -e production encrypt",
+    "unlock": "node src/unlock"
   }
 }

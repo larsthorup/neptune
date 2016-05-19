@@ -2,6 +2,9 @@
   "name": "deploy",
   "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo ToDo: tests",
+    "config:unlock": "cd ../config && npm run unlock",
+    "schema:up": "cd ../schema && npm run migrate:latest",
+    "start": "npm run config:unlock && npm run schema:up"
   }
 }
