@@ -13,7 +13,7 @@ function getSecrets (environment) {
       secrets: require('../cryptex.json').production.secrets
     };
     cryptex.update({config: cryptexConfig});
-    return cryptex.getSecrets(['postgresql_password']);
+    return cryptex.getSecrets(['postgresql_password', 'modulus_token']);
   } else {
     return Promise.resolve({});
   }

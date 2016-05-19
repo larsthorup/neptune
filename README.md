@@ -15,6 +15,6 @@ deploy | Scripts to deploy to production
 `npm run ...`   | Description
 ---             | ---
 test            | Run `npm test` in all sub projects
-start           | Migrate local database and run local API
+start           | Run local API
 deploy          | Migrate production database deploy production API
 

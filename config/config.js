@@ -25,6 +25,9 @@ module.exports = function (environment, secrets) {
       password: secrets['postgresql_password'],
       dbname: 'pbktfksh',
       ssl: true
+    },
+    modulus: {
+      token: secrets['modulus_token']
     }
   };
 

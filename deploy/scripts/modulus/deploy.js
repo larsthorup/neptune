@@ -1,9 +1,18 @@
 var assert = require('assert');
-var cryptex = require('cryptex');
 var requesting = require('request-promise');
+var local = require('@larsthorup/local');
+var config = local('config');
 var executing = require('../executing');
 
-var projectName = 'lars1';
+var conf;
+
+function configuring () {
+  return config.load().then(function (configObject) {
+    conf = configObject;
+  });
+}
+
+var projectName = 'lars1'; // ToDo: use conf.product.id
 
 function sleep (ms) {
   return new Promise(function (resolve) {
@@ -11,8 +20,8 @@ function sleep (ms) {
   });
 }
 
-cryptex.getSecret('modulus_token').then(function (token) {
-  process.env.MODULUS_TOKEN = token;
+configuring().then(function () {
+  process.env.MODULUS_TOKEN = conf.modulus.token;
 
   return executing(`modulus project list`);
 }).then(function (result) {
@@ -29,10 +38,14 @@ cryptex.getSecret('modulus_token').then(function (token) {
   console.log('Deploying...');
   // ToDo: use spawn with stdio: inherit, see https://github.com/kentcdodds/cross-env/blob/master/src/index.js
   // ToDo: script: "echo yes | cryptex-env modulus_token modulus project deploy --project-name lars1"
-  var dist = 'node_modules/deploy-sandbox-service';
+
+  // Note: we deploy the entire repo for now
+  // ToDo: bundle api (with Rollup?) and deploy only that?
+  var dist = '..';
+
   var commands = [
-    `ncp cryptex.json ${dist}/cryptex.json`,
-    `ncp cryptex.key ${dist}/cryptex.key`,
+    // `ncp cryptex.json ${dist}/cryptex.json`,
+    // `ncp cryptex.key ${dist}/cryptex.key`,
     `cd ${dist}`,
     `echo yes | modulus project deploy --project-name ${projectName}`
   ].join(' && ');

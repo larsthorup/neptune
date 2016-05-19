@@ -5,6 +5,12 @@
     "test": "echo ToDo: tests",
     "config:unlock": "cd ../config && npm run unlock",
     "schema:up": "cd ../schema && npm run migrate:latest",
-    "start": "npm run config:unlock && npm run schema:up"
+    "api:up": "node scripts/modulus/deploy",
+    "start": "npm run config:unlock && npm run schema:up && npm run api:up"
+  },
+  "dependencies": {
+    "modulus": "^5.0.1",
+    "ncp": "^2.0.0",
+    "request-promise": "^3.0.0"
   }
 }
