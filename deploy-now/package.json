@@ -1,0 +1,13 @@
+{
+  "name": "deploy-now",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "start": "node scripts/build && cd output/build && now -e NODE_ENV=production"
+  },
+  "dependencies": {
+    "co": "^4.6.0",
+    "fs-extra-promise": "^0.4.1",
+    "now": "^0.28.1"
+  }
+}

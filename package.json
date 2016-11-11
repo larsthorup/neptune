@@ -9,18 +9,19 @@
     "projects": [
       "config",
       "schema",
-      "api",
-      "deploy"
+      "api"
     ]
   },
   "scripts": {
-    "postinstall": "node tools/projects install",
+    "postinstall": "node tools/projects install && cd deploy-now && npm install",
+    "outdated": "npm outdated && node tools/projects outdated && cd deploy-now && npm outdated",
+    "update": "npm update && node tools/projects update && cd deploy-now && npm update",
     "test": "node tools/projects test",
     "start:schema": "cd schema && npm start",
     "start:api": "cd api && npm start",
     "up": "npm run start:schema && npm run start:api",
     "start": "npm run start:api",
-    "deploy": "cd deploy && npm start"
+    "deploy": "cd deploy-now && npm start"
   },
   "repository": {
     "type": "git",
@@ -33,6 +34,6 @@
   },
   "homepage": "https://github.com/larsthorup/neptune#readme",
   "dependencies": {
-    "@larsthorup/local": "^0.2.0"
+    "@larsthorup/local": "^0.6.1"
   }
 }
